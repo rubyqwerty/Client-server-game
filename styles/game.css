@@ -1,0 +1,82 @@
+.pole{
+    height: 600px;
+    width: 850px;
+    border: 0.3rem solid transparent;
+    border-color: wheat;
+    border-radius: 20px;    
+    position: static;
+    position: absolute;
+    margin: 100px 0 0 450px;
+    background-color: #FCFCF5;
+    padding-left: 10px;
+    
+}
+body{
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(#976D6D, #CBA6A6);
+}
+html {
+  height: 100%;
+}
+
+
+
+
+
+.circle {
+    width: 550px; 
+    height: 550px;
+    background: #FCFCF5;
+    border: 0.3rem solid transparent;
+    border-color: black;
+    border-radius: 50%;
+    margin-top: 30px;
+}
+
+img{
+    height: 90px;
+    width: 55px;
+}
+
+.value{
+    font-family: sans-serif;
+    font-size: 30px;
+    font-style: italic;
+    margin-left: 30px;
+    margin-top: 40px;
+    position: absolute;
+}
+
+.purpose{
+    font-family: sans-serif;
+    font-size: 160px;
+    font-style: italic;
+}
+
+.score{
+    font-family: sans-serif;
+    font-size: 50px;
+    font-style: italic;
+}
+
+.right{
+    margin-left: 90%;
+    margin-top: 30px;
+}
+
+.bt1 {
+  display: inline-block;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  user-select: none;
+  padding: .5em 2em;
+  outline: none;
+  border: 2px solid;
+  border-radius: 1px;
+  transition: 0.2s;
+} 
+.bt1:hover { background: rgba(255,255,255,.2); }
+.bt1:active { background: white; }
