@@ -1,10 +1,9 @@
 $(function(){
     $('html, body').css({
     overflow: 'hidden',
-   
-     
 });
-$('.bt1').offset({top : 10, left : 10});
+$('#loseblock').hide();
+$('.bt1').offset({top : 90, left : 10});
 })
 
 function start() {
@@ -14,19 +13,14 @@ function start() {
         dataType: 'json',
         data: {},
         success: function (data) {
-            
-            localStorage['drot1'] = data['startpos'];
-            localStorage['drot2'] = data['startpos'];
-            localStorage['drot3'] = data['startpos'];
-            localStorage['drot4'] = data['startpos'];
-            localStorage['zone1'] = data['zones']['zone1'];
-            localStorage['zone2'] = data['zones']['zone2'];
-            localStorage['zone3'] = data['zones']['zone3'];
-            localStorage['zone4'] = data['zones']['zone4'];
-            localStorage['purpose'] = data['purpose'];
+       console.log(data);
             $('.pole').append(data['pole']);
+            
+            
+          
             print(data);
-            $("#schet").text('Счет: ' + localStorage['schet']);
+           
+            $("#schet").text('Уровень: ' + localStorage['schet']);
             
         }
     });
@@ -46,17 +40,7 @@ function checkposition(postop, posleft, currentdrot) {
         'circle2': $('#circle2').css('width'),
         'circle3': $('#circle3').css('width'),
         'circle4': $('#circle4').css('width'),
-        'drot1': localStorage['drot1'],
-        'drot2': localStorage['drot2'],
-        'drot3': localStorage['drot3'],
-        'drot4': localStorage['drot4'],
-        'zone1': localStorage['zone1'],
-        'zone2': localStorage['zone2'],
-        'zone3': localStorage['zone3'],
-        'zone4': localStorage['zone4'],
-        'curdrot': currentdrot,
-        'purpose': localStorage['purpose'],
-        'schet': localStorage['schet']
+        'curdrot': currentdrot
     };
 
     $.ajax({
@@ -117,6 +101,9 @@ function print(data) {
     $('#value2').offset(data['value2css']);
     $('#value3').offset(data['value3css']);
     $('#value4').offset(data['value4css']);
+    $('#value2-1').offset(data['value2-1css']);
+    $('#value3-1').offset(data['value3-1css']);
+    $('#value4-1').offset(data['value4-1css']);
     $('#circle4').css(data['circle4css']);
     $('#circle3').css(data['circle3css']);
     $('#circle2').css(data['circle2css']);
@@ -139,15 +126,27 @@ function formatTime(time) {
 
 function startTimer() {
 
-    timerInterval = setInterval(() => {
+    let timerInterval = setInterval(() => {
     $.ajax({
         url: '/PHP/timer.php',
         method: 'get',
         dataType: 'json',
-        data: {"time" : localStorage['time']},
+        data: {},
         success: function (data) {
            $('#time').text(formatTime(data['time']));
-           localStorage['time'] = data['time'];
+           $('.lives').empty();
+           var k = 0;
+           if (data['lives'] == 0) k = 1;
+           for (var i = 0; i < data['lives'] + k; ++i)
+                $('.lives').append('<img class = "heart" src="pictures/serdce.png" alt=""/>')
+           if (data['status'] == false){
+               clearInterval(timerInterval);
+               $('#loseblock').show(1500);
+               setTimeout(function(){
+                $('#loseblock').hide(500);
+                end();
+                }, 5000);
+           }
         }
     });
     }, 1000);
@@ -159,14 +158,14 @@ function end(){
         method: 'get',
         dataType: 'json',
         data: {
-            'user' : localStorage['currentlogin'], 
-            'timeprint' : formatTime(localStorage['time']) , 
-            'time' : localStorage['time'],
-            'score' : localStorage['schet']
+            
         },
         success: function (data) {
-           
+           console.log(data);
         }
     });
-     window.location.href = 'account.html';
+    setTimeout(function(){
+        window.location.href = 'account.html';
+    }, 500);
+   
 }

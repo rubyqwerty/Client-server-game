@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $data = $_GET;
 
@@ -9,7 +10,7 @@ $zone2 = $data['circle2'] / 2;
 $zone3 = $data['circle3'] / 2;
 $zone4 = $data['circle4'] / 2;
 
-$distance = ((($data['objtop']+45) - ($data['centtop']+50))**2 + (($data['objleft']+27) - ($data['centleft']+50))**2)**(0.5);
+$distance = ((($data['objtop']) - ($data['centtop']+50))**2 + (($data['objleft']) - ($data['centleft']+50))**2)**(0.5);
 
 if ($distance < $zone1)
     $output['zone'] = 1;
@@ -22,25 +23,26 @@ else if ($distance < $zone4)
 else 
     $output['zone'] = 5;
 
-$zones = array($data['zone1'], $data['zone2'], $data['zone3'], $data['zone4']);
+$zones = array($_SESSION['zone1'], $_SESSION['zone2'], $_SESSION['zone3'], $_SESSION['zone4']);
 
 if ($data['curdrot'] == 'drot1')
-    $data['drot1'] =  $output['zone'];
+    $_SESSION['drot1'] =  $output['zone'];
 else if ($data['curdrot'] == 'drot2')
-    $data['drot2'] =  $output['zone'];
+    $_SESSION['drot2'] =  $output['zone'];
 else if ($data['curdrot'] == 'drot3')
-    $data['drot3'] =  $output['zone'];
+    $_SESSION['drot3'] =  $output['zone'];
 else if ($data['curdrot'] == 'drot4')
-    $data['drot4'] =  $output['zone'];
+    $_SESSION['drot4'] =  $output['zone'];
 
-$score = $zones[$data['drot1']-1] + $zones[$data['drot2']-1] + $zones[$data['drot3']-1] + $zones[$data['drot4']-1];
+$score = $zones[$_SESSION['drot1']-1] + $zones[$_SESSION['drot2']-1] + $zones[$_SESSION['drot3']-1] + $zones[$_SESSION['drot4']-1];
 $output['score'] = $score;
 $output['status'] = false;
         
-if ($score == $data['purpose'] && $data['drot1'] != 5 && $data['drot2'] != 5 && $data['drot3'] != 5 && $data['drot4'] != 5){
+if ($score == $_SESSION['purpose'] && $_SESSION['drot1'] != 5 && $_SESSION['drot2'] != 5 && $_SESSION['drot3'] != 5 && $_SESSION['drot4'] != 5){
     $output['status'] = true;
-    $output['schet'] = $data['schet'] + 1;
-    
+    $_SESSION['schet']++;
+    $_SESSION['level']+=5;
+    $output['schet'] = $_SESSION['schet'];
 }
 
 echo json_encode($output);

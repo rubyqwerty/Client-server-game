@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/OpenServer/domains/lab7/index.html</file>
-            <file>file:/G:/OpenServer/domains/lab7/signup.html</file>
-            <file>file:/G:/OpenServer/domains/lab7/Game.html</file>
-            <file>file:/G:/OpenServer/domains/lab7/settings.html</file>
-            <file>file:/G:/OpenServer/domains/lab7/account.html</file>
+            <file>file:/G:/OpenServer/domains/lab7/PHP/checkpos.php</file>
+            <file>file:/G:/OpenServer/domains/lab7/styles/styleforms.css</file>
+            <file>file:/G:/OpenServer/domains/lab7/JSON/data.json</file>
+            <file>file:/G:/OpenServer/domains/lab7/PHP/endgame.php</file>
+            <file>file:/G:/OpenServer/domains/lab7/PHP/start.php</file>
+            <file>file:/G:/OpenServer/domains/lab7/styles/game.css</file>
+            <file>file:/G:/OpenServer/domains/lab7/scripts/enterence.js</file>
+            <file>file:/G:/OpenServer/domains/lab7/scripts/gamelogic.js</file>
         </group>
     </open-files>
 </project-private>
