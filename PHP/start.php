@@ -86,10 +86,10 @@ $output['zones'] = [ "zone1" => $arr[0] , 'zone2' => $arr[1] , 'zone3' => $arr[2
 
 $output['startpos'] = 5;
 
-$output['circle4css'] = ['width' => '550px', 'height'=> '550px', 'margin-top'=> '30px', 'background-color' => '#FBE7DF', 'border-color' => "#814129"];
-$output['circle3css'] = ['width' => '400px', 'height'=> '400px', 'margin-top'=> '65px', 'margin-left' => "70px", 'background-color' => '#FEF1EC', 'border-color' => "#814129"];
-$output['circle2css'] = ['width' => '250px', 'height'=> '250px', 'margin-top'=> '65px', 'margin-left' => "70px", 'background-color' => '#FBE7DF', 'border-color' => "#814129"];
-$output['circle1css'] = ['width' => '100px', 'height'=> '100px', 'margin-top'=> '65px', 'margin-left' => "70px", 'background-color' => '#FF9066', 'border-color' => "#814129"];
+$output['circle4css'] = ['width' => '550px', 'height'=> '550px', 'margin-top'=> '30px'  , 'border-color' => "#814129", 'background-image' => 'url(pictures/pesok.jpg)'];
+$output['circle3css'] = ['width' => '400px', 'height'=> '400px', 'margin-top'=> '65px', 'margin-left' => "70px", 'background-color' => '#FEF1EC', 'border-color' => "#814129",'background-image' => 'url(pictures/pesok2.jpg)'];
+$output['circle2css'] = ['width' => '250px', 'height'=> '250px', 'margin-top'=> '65px', 'margin-left' => "70px",  'border-color' => "#814129",'background-image' => 'url(pictures/pesok.jpg)'];
+$output['circle1css'] = ['width' => '100px', 'height'=> '100px', 'margin-top'=> '65px', 'margin-left' => "70px",  'border-color' => "#814129",'background-image' => 'url(pictures/pesok2.jpg)'];
 
 $output['drot1css'] = ['top' => '600', 'left' => '1060'];
 $output['drot2css'] = ['top' => '600', 'left' => '1120'];

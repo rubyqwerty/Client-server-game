@@ -57,8 +57,11 @@ function back() {
 function CurrentUser() {
     if (localStorage['currentuser'] == 'exit')
         window.location.href = 'index.html';
-    else
+    else{
         $('.user').text('Привет, ' + localStorage['currentuser'] + '!');
+        $('.two').hide();
+        $('.two').show(1000);
+    }
 }
 
 function Exit() {

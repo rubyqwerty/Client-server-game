@@ -141,6 +141,7 @@ function startTimer() {
                 $('.lives').append('<img class = "heart" src="pictures/serdce.png" alt=""/>')
            if (data['status'] == false){
                clearInterval(timerInterval);
+               $('.pole').hide(1500);
                $('#loseblock').show(1500);
                setTimeout(function(){
                 $('#loseblock').hide(500);
