@@ -1,10 +1,20 @@
-$(function(){
+$(function () {
     $('html, body').css({
-    overflow: 'hidden',
+        overflow: 'hidden',
+    });
+    $('#loseblock').hide();
+    $('#loseblock').offset({top: "100", left: "350"})
+    $('.bt1').offset({top: 35});
+    $('.lives').offset({left: '640', top: '30'});
+    $('.win1').hide();
+    $('.win1').offset({top: '50'});
+   $(document).mousemove(function(e){
+    var X = e.pageX; // положения по оси X
+    var Y = e.pageY; // положения по оси Y
+    console.log("X: " + X + " Y: " + Y); // вывод результата в консоль
+}); 
+
 });
-$('#loseblock').hide();
-$('.bt1').offset({top : 90, left : 10});
-})
 
 function start() {
     $.ajax({
@@ -13,27 +23,23 @@ function start() {
         dataType: 'json',
         data: {},
         success: function (data) {
-       console.log(data);
+            
+            console.log(data);
             $('.pole').append(data['pole']);
             
-            
-          
             print(data);
-           
-            $("#schet").text('Уровень: ' + localStorage['schet']);
-            
+            $("#schet").html((Number(localStorage['schet']) + 1) + '<h6>Уровень</h6> ');
         }
     });
 }
 
 localStorage['schet'] = 0;
-localStorage['time'] = 0;
 
 function checkposition(postop, posleft, currentdrot) {
 
     let dates = {
-        'centtop': $('#circle1').offset().top,
-        'centleft': $('#circle1').offset().left,
+        'centtop': 402,
+        'centleft': 625,
         'objtop': postop,
         'objleft': posleft,
         'circle1': $('#circle1').css('width'),
@@ -52,19 +58,21 @@ function checkposition(postop, posleft, currentdrot) {
             localStorage[currentdrot] = data['zone'];
             $('#score').text('Очки: ' + data['score']);
             if (data['status'] == true) {
-                $('.pole').empty();
-                start();
+                
+                $('.win1').show();
+                setTimeout(function () {
+                           $('.win1').hide();
+                           $('.pole').empty();
+                           start();
+                        }, 500);
+                
                 localStorage['schet'] = data['schet'];
             }
         }
     });
-
 }
 
-
 function print(data) {
-
-
     $("#drot1").draggable({
         containment: "parent",
         stop: function () {
@@ -117,56 +125,59 @@ function print(data) {
 function formatTime(time) {
     const minutes = Math.floor(time / 60);
     let seconds = time % 60;
-    if (seconds < 10){
+    if (seconds < 10)
         seconds = `0${seconds}`;
-    }
     return `${minutes}:${seconds}`;
 }
-
-
+localStorage['lives'] = 5;
 function startTimer() {
 
     let timerInterval = setInterval(() => {
-    $.ajax({
-        url: '/PHP/timer.php',
-        method: 'get',
-        dataType: 'json',
-        data: {},
-        success: function (data) {
-           $('#time').text(formatTime(data['time']));
-           $('.lives').empty();
-           var k = 0;
-           if (data['lives'] == 0) k = 1;
-           for (var i = 0; i < data['lives'] + k; ++i)
-                $('.lives').append('<img class = "heart" src="pictures/serdce.png" alt=""/>')
-           if (data['status'] == false){
-               clearInterval(timerInterval);
-               $('.pole').hide(1500);
-               $('#loseblock').show(1500);
-               setTimeout(function(){
-                $('#loseblock').hide(500);
-                end();
-                }, 5000);
-           }
-        }
-    });
+        $.ajax({
+            url: '/PHP/timer.php',
+            method: 'get',
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                $('#time').text(formatTime(data['time']));
+                $('.lives').empty();
+                var k = 0;
+                if (data['lives'] == 0)
+                    k = 1;
+                if (localStorage['lives']!=data['lives']){
+                    start();
+                $('.pole').empty();}
+                localStorage['lives'] = data['lives'];
+                for (var i = 0; i < data['lives'] + k; ++i)
+                    $('.lives').append('<img class = "heart" src="pictures/serdce.png" alt=""/>')
+                if (data['status'] == false) {
+                    clearInterval(timerInterval);
+                    $('.pole').hide(1500);
+                    $('.pole').empty();
+                    $('#time').hide();
+                    $('#loseblock').show(1500);
+                    setTimeout(function () {
+                        $('#loseblock').hide(500);
+                        setTimeout(function () {
+                            end();
+                        }, 500);
+
+                    }, 5000);
+                }
+            }
+        });
     }, 1000);
 }
 
-function end(){
+function end() {
     $.ajax({
         url: '/PHP/endgame.php',
         method: 'get',
         dataType: 'json',
-        data: {
-            
-        },
+        data: {},
         success: function (data) {
-           console.log(data);
+            console.log(data);
         }
     });
-    setTimeout(function(){
-        window.location.href = 'account.html';
-    }, 500);
-   
+    window.location.href = 'account.html';
 }

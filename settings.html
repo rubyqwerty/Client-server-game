@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-
 <html>
     <head>
-        <title>Настройки</title>
+        <title>Правила</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-         
         <link href="styles/styleaccount.css" rel="stylesheet" type="text/css"/>
         <link href="styles/acc.css" rel="stylesheet" type="text/css"/>
         <script src="scripts/enterence.js" type="text/javascript"></script>
         <link href="styles/myapp.css" rel="stylesheet" type="text/css"/>
+        <script src="scripts/enterence.js" type="text/javascript"></script>
+        <script src="scripts/jquery-3.6.0.js" type="text/javascript"></script>
+        <link rel="icon" href="pictures/favicon.ico" type="image/x-icon">
     </head>
-    <body background = 'pictures/phone1.png'>
+    <body background = 'pictures/phone1.png' onload = "CurrentUser();">
+        <div id = 'current-user' class = 'user'></div>
         <center><div class = "H"><h1>Правила</h1></div> </center>   
-        <div class = "pic"><img src="pictures/game.PNG" alt=""/></div>
+        <center><img src="pictures/game.PNG" alt=""/></center>
         <center><div class = 'elem'><input type ="button" class ="but bn36" value ="Назад" onclick = "main()"></div></center>
-    </body>
+</body>
 </html>
