@@ -1,44 +1,55 @@
 .pole{
+    margin-top: 25px;
     height: 600px;
     width: 850px;
-    border: 0.3rem solid transparent;
+    border: 1px solid transparent;
     border-color: wheat;
     border-radius: 20px;    
     position: static;
     position: absolute;
-    margin: 100px 0 0 450px;
-    background-color: #FCFCF5;
+    margin-left: 343px;
+    background-color: #FFEEB6;
     padding-left: 10px;
-    
+    background-image: url('/pictures/der.jpg');
+    background: rgba(240,240,240,.5);
+
 }
 body{
     margin:0;
     padding:0;
     font-family: sans-serif;
-    background: linear-gradient(#976D6D, #CBA6A6);
+    background-image: 'pictures/phone1.jpg';
+    background-size:  contain;
 }
 html {
-  height: 100%;
+    height: 100%;
 }
 
-
-
+#loseblock{
+    position: absolute;
+    heidth: 1188px;
+    width: 840px;
+}
+.win1{
+    position: absolute;
+    heidth: 1188px;
+    width: 840px;
+    margin-top: 30px;
+    margin-left: 343px;
+}
 
 
 .circle {
     width: 550px; 
     height: 550px;
-    background: #FCFCF5;
-    border: 0.3rem solid transparent;
+    border: 3px solid transparent;
     border-color: black;
     border-radius: 50%;
     margin-top: 30px;
+    background-image: 'pictures/gazon.jpg';
+
 }
 
-img{
-    height: 90px;
-    width: 55px;
-}
 
 .value{
     font-family: sans-serif;
@@ -50,33 +61,93 @@ img{
 }
 
 .purpose{
-    font-family: sans-serif;
-    font-size: 160px;
-    font-style: italic;
+    color: #965203; 
+    font-family: ‘Helvetica Neue’, sans-serif; 
+    font-size: 160px; 
+    font-weight: bold; 
+    letter-spacing: -1px; 
+    line-height: 1; 
 }
 
 .score{
-    font-family: sans-serif;
-    font-size: 50px;
-    font-style: italic;
+    color: #965203; 
+    font-family: ‘Helvetica Neue’, sans-serif; 
+    font-size: 50px; 
+    font-weight: bold; 
 }
 
 .right{
     margin-left: 90%;
     margin-top: 30px;
+
 }
 
 .bt1 {
-  display: inline-block;
-  color: white;
-  font-weight: 700;
-  text-decoration: none;
-  user-select: none;
-  padding: .5em 2em;
-  outline: none;
-  border: 2px solid;
-  border-radius: 1px;
-  transition: 0.2s;
+    display: inline-block;
+    color: #894229;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 1px solid ;
+    border-radius: 20px;
+    transition: 0.2s;
 } 
 .bt1:hover { background: rgba(255,255,255,.2); }
 .bt1:active { background: white; }
+
+.heart{
+    height: 49px;
+    width: 51px;
+    margin-left: 5px;
+}
+.drot{
+    height: 102px;
+    width: 24px;
+}
+.lives{
+    margin-top: 15px;
+    margin-left: 10px;
+    border: 5px outset;
+    border-color: #bf8002;
+    width: 300px;
+}
+.value{
+    color: #9C4C00; 
+    font-family: ‘Helvetica Neue’, sans-serif; 
+    font-size: 30px; font-weight: bold; 
+    letter-spacing: -1px; 
+    line-height: 1; 
+    text-align: center; 
+}
+#schet{
+    line-height: 3px;
+    padding-top: 30px;
+    padding-left: -35px;
+    border: 5px outset;
+    border-radius: 50%;
+    border-color: #bf8002;
+    width: 80px;
+    height: 55px;
+    text-align: center;
+
+}
+#time{
+    border: 5px outset;
+    border-color: #bf8002;
+    width: 100px;
+}
+
+h6{
+    font-size: 15px;
+}
+.user{
+    text-decoration: underline;
+    font-family: 'Righteous';
+    color: white;
+    font-size: 30px;
+    position: absolute;
+    top: 30px;
+    left: 15px;
+}

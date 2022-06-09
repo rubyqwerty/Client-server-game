@@ -1,5 +1,8 @@
 <?php
 
+session_start();
+
+ 
 $data = $_GET;
 
 $errors['enter'] = '';
@@ -26,6 +29,11 @@ else{
         $errors['status'] = true;
         $errors['user'] = $users[$data['login']]['email'];
         $errors['loginuser'] = $data['login'];
+        
+        $_SESSION['username'] = $users[$data['login']]['email'];
+        $_SESSION['userlogin'] = $data['login'];
+        
+        
         }
 }
 

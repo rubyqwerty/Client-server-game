@@ -1,11 +1,20 @@
-$(function(){
+$(function () {
     $('html, body').css({
-    overflow: 'hidden',
-   
-     
+        overflow: 'hidden',
+    });
+    $('#loseblock').hide();
+    $('#loseblock').offset({top: "100", left: "350"})
+    $('.bt1').offset({top: 35});
+    $('.lives').offset({left: '640', top: '30'});
+    $('.win1').hide();
+    $('.win1').offset({top: '50'});
+   $(document).mousemove(function(e){
+    var X = e.pageX; // положения по оси X
+    var Y = e.pageY; // положения по оси Y
+    console.log("X: " + X + " Y: " + Y); // вывод результата в консоль
+}); 
+
 });
-$('.bt1').offset({top : 10, left : 10});
-})
 
 function start() {
     $.ajax({
@@ -15,48 +24,29 @@ function start() {
         data: {},
         success: function (data) {
             
-            localStorage['drot1'] = data['startpos'];
-            localStorage['drot2'] = data['startpos'];
-            localStorage['drot3'] = data['startpos'];
-            localStorage['drot4'] = data['startpos'];
-            localStorage['zone1'] = data['zones']['zone1'];
-            localStorage['zone2'] = data['zones']['zone2'];
-            localStorage['zone3'] = data['zones']['zone3'];
-            localStorage['zone4'] = data['zones']['zone4'];
-            localStorage['purpose'] = data['purpose'];
+            console.log(data);
             $('.pole').append(data['pole']);
-            print(data);
-            $("#schet").text('Счет: ' + localStorage['schet']);
             
+            print(data);
+            $("#schet").html((Number(localStorage['schet']) + 1) + '<h6>Уровень</h6> ');
         }
     });
 }
 
 localStorage['schet'] = 0;
-localStorage['time'] = 0;
 
 function checkposition(postop, posleft, currentdrot) {
 
     let dates = {
-        'centtop': $('#circle1').offset().top,
-        'centleft': $('#circle1').offset().left,
+        'centtop': 402,
+        'centleft': 625,
         'objtop': postop,
         'objleft': posleft,
         'circle1': $('#circle1').css('width'),
         'circle2': $('#circle2').css('width'),
         'circle3': $('#circle3').css('width'),
         'circle4': $('#circle4').css('width'),
-        'drot1': localStorage['drot1'],
-        'drot2': localStorage['drot2'],
-        'drot3': localStorage['drot3'],
-        'drot4': localStorage['drot4'],
-        'zone1': localStorage['zone1'],
-        'zone2': localStorage['zone2'],
-        'zone3': localStorage['zone3'],
-        'zone4': localStorage['zone4'],
-        'curdrot': currentdrot,
-        'purpose': localStorage['purpose'],
-        'schet': localStorage['schet']
+        'curdrot': currentdrot
     };
 
     $.ajax({
@@ -68,19 +58,21 @@ function checkposition(postop, posleft, currentdrot) {
             localStorage[currentdrot] = data['zone'];
             $('#score').text('Очки: ' + data['score']);
             if (data['status'] == true) {
-                $('.pole').empty();
-                start();
+                
+                $('.win1').show();
+                setTimeout(function () {
+                           $('.win1').hide();
+                           $('.pole').empty();
+                           start();
+                        }, 500);
+                
                 localStorage['schet'] = data['schet'];
             }
         }
     });
-
 }
 
-
 function print(data) {
-
-
     $("#drot1").draggable({
         containment: "parent",
         stop: function () {
@@ -117,6 +109,9 @@ function print(data) {
     $('#value2').offset(data['value2css']);
     $('#value3').offset(data['value3css']);
     $('#value4').offset(data['value4css']);
+    $('#value2-1').offset(data['value2-1css']);
+    $('#value3-1').offset(data['value3-1css']);
+    $('#value4-1').offset(data['value4-1css']);
     $('#circle4').css(data['circle4css']);
     $('#circle3').css(data['circle3css']);
     $('#circle2').css(data['circle2css']);
@@ -130,43 +125,59 @@ function print(data) {
 function formatTime(time) {
     const minutes = Math.floor(time / 60);
     let seconds = time % 60;
-    if (seconds < 10){
+    if (seconds < 10)
         seconds = `0${seconds}`;
-    }
     return `${minutes}:${seconds}`;
 }
-
-
+localStorage['lives'] = 5;
 function startTimer() {
 
-    timerInterval = setInterval(() => {
-    $.ajax({
-        url: '/PHP/timer.php',
-        method: 'get',
-        dataType: 'json',
-        data: {"time" : localStorage['time']},
-        success: function (data) {
-           $('#time').text(formatTime(data['time']));
-           localStorage['time'] = data['time'];
-        }
-    });
+    let timerInterval = setInterval(() => {
+        $.ajax({
+            url: '/PHP/timer.php',
+            method: 'get',
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                $('#time').text(formatTime(data['time']));
+                $('.lives').empty();
+                var k = 0;
+                if (data['lives'] == 0)
+                    k = 1;
+                if (localStorage['lives']!=data['lives']){
+                    start();
+                $('.pole').empty();}
+                localStorage['lives'] = data['lives'];
+                for (var i = 0; i < data['lives'] + k; ++i)
+                    $('.lives').append('<img class = "heart" src="pictures/serdce.png" alt=""/>')
+                if (data['status'] == false) {
+                    clearInterval(timerInterval);
+                    $('.pole').hide(1500);
+                    $('.pole').empty();
+                    $('#time').hide();
+                    $('#loseblock').show(1500);
+                    setTimeout(function () {
+                        $('#loseblock').hide(500);
+                        setTimeout(function () {
+                            end();
+                        }, 500);
+
+                    }, 5000);
+                }
+            }
+        });
     }, 1000);
 }
 
-function end(){
+function end() {
     $.ajax({
         url: '/PHP/endgame.php',
         method: 'get',
         dataType: 'json',
-        data: {
-            'user' : localStorage['currentlogin'], 
-            'timeprint' : formatTime(localStorage['time']) , 
-            'time' : localStorage['time'],
-            'score' : localStorage['schet']
-        },
+        data: {},
         success: function (data) {
-           
+            console.log(data);
         }
     });
-     window.location.href = 'account.html';
+    window.location.href = 'account.html';
 }

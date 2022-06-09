@@ -2,21 +2,33 @@
 
 <html>
     <head>
-        <title>Игра</title>
+        <title>Игра "Дротики"</title>
         <meta charset="UTF-8">
         <link href="styles/game.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="scripts/jquery-3.6.0.js" type="text/javascript"></script>
-        <script src="scripts/jquery-ui.js" type="text/javascript"></script>
-        <link href="styles/styleforms.css" rel="stylesheet" type="text/css"/>
+       <link rel="icon" href="pictures/favicon.ico" type="image/x-icon">
         <script src="scripts/gamelogic.js" type="text/javascript"></script>
+        <script src="scripts/enterence.js" type="text/javascript"></script>
     </head>
-    <body onload = 'start(); startTimer();'>
-        
-        <div class = "pole"></div>  
-        <center><div class = "score" id = "time">0:00</div></center>
+     
+    <body onload = 'start(); startTimer(); CurrentUser();' background = 'pictures/phone1.png'>
        
-        <p class = "right"><input type ="button" class ="bt1" value ="Завершить" onclick = "end()"></p>
+        <div id = 'current-user' class = 'user'></div>
+        <div class = 'lives'>
+            <img src="pictures/serdce.png" class = 'heart'/>
+            <img src="pictures/serdce.png" class = 'heart'/>
+            <img src="pictures/serdce.png" class = 'heart'/>
+            <img src="pictures/serdce.png" class = 'heart'/>
+            <img src="pictures/serdce.png" class = 'heart'/>
+        </div>
+        <div class = "pole"></div>  
+         <img src="pictures/win.gif" alt="" class = "win1" />
         
+      
+        <p class = "right"><input type ="button" class ="bt1" value ="Завершить" onclick = "end()"></p>
+        <div class = "score" id = "time">0:15</div>
+        <center><img src="pictures/lose2.png" id = "loseblock"/></center>
+       
     </body>
 </html>

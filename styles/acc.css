@@ -16,11 +16,14 @@
   margin-left:15px;
   width: 400px;
   height: 100px;
+  /*
+  background-image: url('pictures/tree.jpg');
+  background-size:  contain;*/
 }
 
 .bn36 {
   border-color: #fff;
-  transition: transform 0.2s cubic-bezier(0.235, 0, 0.05, 0.95);
+  transition: transform 0.2s cubic-bezier(0.535, 0, 0.95, 0.495);
 }
 
 .bn36:hover {

@@ -1,8 +1,6 @@
 function enter() {
-
     let login = $('#LOGIN');
     let password = $('#PASSWORD');
-
     $.ajax({
         url: '/PHP/enter.php',
         method: 'get',
@@ -57,13 +55,23 @@ function back() {
 function CurrentUser() {
     if (localStorage['currentuser'] == 'exit')
         window.location.href = 'index.html';
-    else
+    else {
         $('.user').text('Привет, ' + localStorage['currentuser'] + '!');
+        $('.two').hide();
+        $('.two').show(1000);
+    }
 }
 
 function Exit() {
     window.location.href = 'index.html';
     localStorage.clear();
+    $.ajax({
+        url: '/PHP/clear.php',
+        method: 'get',
+        dataType: 'json',
+        data: {},
+        success: function (data) {}
+    });
 }
 
 function Play() {
@@ -82,23 +90,17 @@ function setting(){
     window.location.href = 'settings.html';
 }
 
-
-
 function createtable(database){
     console.log(database);
     let tableblock = $("#table");
-    var table = '<table class="table_dark"><tr> <td>Номер</td> <td>Счет</td> <td>Время</td> <td>Коэффициент</td>';
-    for (var counter = 1; counter <= Object.keys(database[localStorage['currentlogin']]['games']).length; counter++){
-    
-        var score = database[localStorage['currentlogin']]['games'][counter]['score'];
-        var time = database[localStorage['currentlogin']]['games'][counter]['timeprint'];
-        var koef = database[localStorage['currentlogin']]['games'][counter]['coef'];
-        
+    var table = '<table class="table_dark"><tr> <td>Номер попытки</td> <td>Уровень</td> <td>Дата попытки</td>';
+    for (var counter = 1; counter <= Object.keys(database['base'][database['userlogin']]['games']).length; counter++){
+        var score = database['base'][database['userlogin']]['games'][counter]['score'] + 1;
+        var datap =  database['base'][database['userlogin']]['games'][counter]['time'];
         table += '<tr>';
         table += '<td>№'+counter + '</td>';
         table += '<td>'+score + '</td>';
-        table += '<td>'+time + '</td>';
-        table += '<td>'+koef + '</td>';
+        table += '<td>'+datap + '</td>';
         table += '</tr>';
     }
     table += '</table>'
